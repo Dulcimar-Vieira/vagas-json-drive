@@ -6,6 +6,12 @@ import xmltodict
 import os
 from github import Github
 
+import os
+from github import Github
+
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # Obtendo o token de ambiente
+g = Github(GITHUB_TOKEN)
+
 # Configurações
 FEED_URL = "https://feeds.whatjobs.com/sinerj/sinerj_pt_BR.xml.gz"
 LOCAL_GZ_FILE = "feed.xml.gz"
