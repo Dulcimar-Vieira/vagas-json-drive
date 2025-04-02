@@ -8,8 +8,7 @@ feed_url = "https://feeds.whatjobs.com/sinerj/sinerj_pt_BR.xml.gz"
 # Baixar o feed comprimido
 response = requests.get(feed_url)
 if response.status_code == 200:
-    with gzip.decompress(response.content) as f:
-        xml_data = f.read().decode("utf-8")
+    xml_data = gzip.decompress(response.content).decode("utf-8")
 else:
     print("Erro ao baixar o feed:", response.status_code)
     exit()
