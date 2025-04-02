@@ -1,0 +1,31 @@
+name: Processar Feed XML
+
+on:
+  schedule:
+    - cron: "0 */12 * * *"  # Executa a cada 12 horas
+  workflow_dispatch:  # Permite rodar manualmente
+
+jobs:
+  process-feed:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@v4
+
+      - name: Instalar Dependências
+        run: pip install requests xmltodict
+
+      - name: Baixar e Processar Feed XML
+        run: python script.py
+
+      - name: Configurar Git
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+      - name: Commit e Push dos Arquivos JSON
+        run: |
+          git add json_parts/
+          git commit -m "Atualização automática dos arquivos JSON"
+          git push
