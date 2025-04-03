@@ -10,6 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Verificar arquivos JSON
+  run: ls -lh json_parts/
+
+- name: Commit e Push dos Arquivos JSON
+  run: |
+    git add json_parts/ || echo "Nenhum arquivo para adicionar"
+    git commit -m "Atualizando JSONs" || echo "Nada para commitar"
+    git push || echo "Nenhuma alteração para enviar"
+
       - name: Checkout do Repositório
         uses: actions/checkout@v4
 
@@ -29,12 +38,3 @@ jobs:
           git add json_parts/
           git commit -m "Atualização automática dos arquivos JSON"
           git push
-
-          - name: Verificar arquivos JSON
-  run: ls -lh json_parts/
-
-- name: Commit e Push dos Arquivos JSON
-  run: |
-    git add json_parts/ || echo "Nenhum arquivo para adicionar"
-    git commit -m "Atualizando JSONs" || echo "Nada para commitar"
-    git push || echo "Nenhuma alteração para enviar"
