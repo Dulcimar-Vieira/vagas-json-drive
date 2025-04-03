@@ -10,15 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Verificar arquivos JSON
-  run: ls -lh json_parts/
-
-- name: Commit e Push dos Arquivos JSON
-  run: |
-    git add json_parts/ || echo "Nenhum arquivo para adicionar"
-    git commit -m "Atualizando JSONs" || echo "Nada para commitar"
-    git push || echo "Nenhuma alteração para enviar"
-
       - name: Checkout do Repositório
         uses: actions/checkout@v4
 
@@ -28,6 +19,9 @@ jobs:
       - name: Baixar e Processar Feed XML
         run: python script.py
 
+      - name: Verificar arquivos JSON
+        run: ls -lh json_parts/ || echo "A pasta está vazia ou não existe!"
+
       - name: Configurar Git
         run: |
           git config --global user.name "github-actions"
@@ -35,6 +29,6 @@ jobs:
 
       - name: Commit e Push dos Arquivos JSON
         run: |
-          git add json_parts/
-          git commit -m "Atualização automática dos arquivos JSON"
-          git push
+          git add json_parts/ || echo "Nenhum arquivo para adicionar"
+          git commit -m "Atualização automática dos arquivos JSON" || echo "Nada para commitar"
+          git push || echo "Nenhuma alteração para enviar"
