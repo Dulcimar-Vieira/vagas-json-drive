@@ -8,6 +8,12 @@ import os
 # URL do feed
 feed_url = "https://feeds.whatjobs.com/sinerj/sinerj_pt_BR.xml.gz"
 
+with open(f"json_parts/arquivo.json", "w", encoding="utf-8") as json_file:
+    json.dump({"teste": "dados"}, json_file, ensure_ascii=False, indent=4)
+
+json_folder = "json_parts"
+os.makedirs(json_folder, exist_ok=True)
+
 # Criar pasta para os arquivos JSON
 json_folder = "json_parts"
 os.makedirs(json_folder, exist_ok=True)  # Garante que a pasta existe
