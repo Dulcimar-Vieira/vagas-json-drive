@@ -27,10 +27,19 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
 
-      - name: Commit e Push dos Arquivos JSON
-        run: |
-          git add json_parts/ || echo "Nenhum arquivo para adicionar"
-          git commit -m "Atualização automática dos arquivos JSON" || echo "Nada para commitar"
-          git push || echo "Nenhuma alteração para enviar"
-              - name: Verificar arquivos JSON antes do commit
-      run: ls -lh json_parts/ || echo "A pasta está vazia ou não existe!"
+          - name: Commit e Push dos Arquivos JSON
+      run: |
+        git add json_parts/ --force
+        git commit -m "Atualização automática dos arquivos JSON" || echo "Nada para commitar"
+        git push || echo "Nenhuma alteração para enviar"
+
+       - name: Verificar arquivos JSON antes do commit
+      run: ls -lh json_parts/ || echo "A pasta está vazia ou não existe!"      
+
+          - name: Exibir diretório atual
+      run: pwd
+
+          - name: Navegar para o diretório correto antes do commit
+      run: cd $GITHUB_WORKSPACE && git add json_parts/ --force
+
+
