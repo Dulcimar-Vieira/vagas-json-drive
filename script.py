@@ -8,10 +8,6 @@ import os
 # URL do feed
 feed_url = "https://feeds.whatjobs.com/sinerj/sinerj_pt_BR.xml.gz"
 
-# Criar pasta para os arquivos JSON
-json_folder = "json_parts"
-os.makedirs(json_folder, exist_ok=True)  # Garante que a pasta existe
-
 # Baixar o feed XML comprimido
 response = requests.get(feed_url, stream=True)
 
