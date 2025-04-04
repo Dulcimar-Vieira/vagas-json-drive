@@ -32,3 +32,5 @@ jobs:
           git add json_parts/ || echo "Nenhum arquivo para adicionar"
           git commit -m "Atualização automática dos arquivos JSON" || echo "Nada para commitar"
           git push || echo "Nenhuma alteração para enviar"
+              - name: Verificar arquivos JSON antes do commit
+      run: ls -lh json_parts/ || echo "A pasta está vazia ou não existe!"
