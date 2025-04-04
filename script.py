@@ -30,7 +30,7 @@ if response.status_code == 200:
             # Criar um novo JSON a cada 1.000 registros
             if len(jobs) >= 1000:  
                 json_path = os.path.join(json_folder, f"part_{file_count}.json")
-                with open(json_path, "w", encoding="utf-8") as json_file
+                with open(json_path, "w", encoding="utf-8") as json_file:
                     json.dump(jobs, json_file, ensure_ascii=False, indent=2)
                 
                 print(f"Arquivo salvo: {json_path}")  # Log para depuração
