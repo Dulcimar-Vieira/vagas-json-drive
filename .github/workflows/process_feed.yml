@@ -14,16 +14,18 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Instalar Dependências
-        run: pip install requests xmltodict
+        run: pip install requests
+
+      - name: Garantir pasta json_parts existe
+        run: |
+          mkdir -p json_parts
+          touch json_parts/.gitkeep
 
       - name: Baixar e Processar Feed XML
         run: python script.py
 
-      - name: Verificar arquivos JSON antes do commit
-        run: ls -lh json_parts/ || echo "A pasta está vazia ou não existe!"  
-
-      - name: Exibir diretório atual
-        run: pwd
+      - name: Verificar arquivos JSON
+        run: ls -lh json_parts/ || echo "A pasta está vazia ou não existe!"
 
       - name: Configurar Git
         run: |
@@ -32,7 +34,7 @@ jobs:
 
       - name: Commit e Push dos Arquivos JSON
         run: |
-          cd $GITHUB_WORKSPACE  # Garante que está no diretório correto
+          cd $GITHUB_WORKSPACE
           git add json_parts/ --force
           git commit -m "Atualização automática dos arquivos JSON" || echo "Nada para commitar"
           git push || echo "Nenhuma alteração para enviar"
