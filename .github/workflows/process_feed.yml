@@ -28,7 +28,7 @@ jobs:
         run: |
           python script.py || { echo "Erro ao executar script.py"; exit 1; }
 
-            - name: Mesclar arquivos JSON em merged.json
+      - name: Mesclar arquivos JSON em merged.json
         run: |
           python merge_json.py || { echo "Erro ao executar merge_json.py"; exit 1; }
 
@@ -36,10 +36,6 @@ jobs:
         run: |
           ls -lh merged.json
           head -n 20 merged.json || echo "merged.json está vazio!"    
-
-      - name: Gerar arquivo único merged.json
-        run: |
-          python merge_json.py || { echo "Erro ao executar merge_json.py"; exit 1; }
 
       - name: Verificar arquivos JSON antes do commit
         run: ls -lh json_parts/ || echo "A pasta está vazia ou não existe!"
