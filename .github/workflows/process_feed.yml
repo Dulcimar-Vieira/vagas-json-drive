@@ -5,6 +5,9 @@ on:
     - cron: "0 */12 * * *"  # Executa a cada 12 horas
   workflow_dispatch:  # Permite rodar manualmente
 
+permissions:
+  contents: write  # Permite fazer commit e push no repositório
+
 jobs:
   process-feed:
     runs-on: ubuntu-latest
@@ -22,9 +25,10 @@ jobs:
           touch json_parts/.gitkeep
 
       - name: Baixar e Processar Feed XML
-        run: python script.py
+        run: |
+          python script.py || { echo "Erro ao executar script.py"; exit 1; }
 
-      - name: Verificar arquivos JSON
+      - name: Verificar arquivos JSON antes do commit
         run: ls -lh json_parts/ || echo "A pasta está vazia ou não existe!"
 
       - name: Configurar Git
@@ -35,6 +39,9 @@ jobs:
       - name: Commit e Push dos Arquivos JSON
         run: |
           cd $GITHUB_WORKSPACE
-          git add json_parts/ --force
+          git add -f json_parts/
           git commit -m "Atualização automática dos arquivos JSON" || echo "Nada para commitar"
           git push || echo "Nenhuma alteração para enviar"
+
+      - name: Verificar arquivos JSON depois do commit
+        run: ls -lh json_parts/ || echo "A pasta está vazia ou não existe!"
