@@ -27,20 +27,20 @@ if response.status_code == 200:
 
                 # 🔍 Filtrar apenas vagas de Jovem Aprendiz
                 if "jovem aprendiz" in title.lower() or "aprendiz" in title.lower():
-                    # Pegar cidade e estado corretamente
                     location_elem = elem.find("locations/location")
                     if location_elem is not None:
                         city = location_elem.findtext("city", "").strip()
                         state = location_elem.findtext("state", "").strip()
-                        full_location = f"{city} - {state}" if city or state else ""
                     else:
-                        full_location = ""
+                        city = ""
+                        state = ""
 
                     job_data = {
                         "title": title,
                         "description": elem.findtext("description", "").strip(),
                         "company": elem.findtext("company/name", "").strip(),
-                        "location": full_location,
+                        "city": city,
+                        "state": state,
                         "url": elem.findtext("urlDeeplink", "").strip(),
                         "tipo": elem.findtext("jobType", "").strip(),
                     }
