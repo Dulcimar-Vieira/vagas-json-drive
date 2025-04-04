@@ -28,8 +28,15 @@ jobs:
         run: |
           python script.py || { echo "Erro ao executar script.py"; exit 1; }
 
+      - name: Gerar arquivo único merged.json
+        run: |
+          python merge_json.py || { echo "Erro ao executar merge_json.py"; exit 1; }
+
       - name: Verificar arquivos JSON antes do commit
         run: ls -lh json_parts/ || echo "A pasta está vazia ou não existe!"
+      
+      - name: Verificar merged.json antes do commit
+        run: ls -lh merged.json || echo "merged.json não foi gerado!"
 
       - name: Configurar Git
         run: |
@@ -40,8 +47,12 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           git add -f json_parts/
+          git add -f merged.json
           git commit -m "Atualização automática dos arquivos JSON" || echo "Nada para commitar"
           git push || echo "Nenhuma alteração para enviar"
 
       - name: Verificar arquivos JSON depois do commit
         run: ls -lh json_parts/ || echo "A pasta está vazia ou não existe!"
+
+      - name: Verificar merged.json depois do commit
+        run: ls -lh merged.json || echo "merged.json não foi gerado!"
