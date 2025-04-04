@@ -1,1 +1,5 @@
-
+mkdir json_parts
+touch json_parts/.gitkeep
+git add json_parts/.gitkeep
+git commit -m "json_parts.gitkeep"
+git push
