@@ -31,8 +31,9 @@ if response.status_code == 200:
                         "title": title,
                         "description": elem.findtext("description", "").strip(),
                         "company": elem.findtext("company/name", "").strip(),  # Corrigido
-                        "location": elem.findtext("locations/location", "").strip(),  # Corrigido
+                        "locations": elem.findtext("locations/location/city/state", "").strip(),  # Corrigido
                         "url": elem.findtext("urlDeeplink", "").strip(),  # Corrigido
+                        "Tipo": elem.findtext("jobType", "").strip(),
                     }
                     jobs.append(job_data)
                 
